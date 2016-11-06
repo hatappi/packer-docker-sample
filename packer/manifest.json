@@ -1,0 +1,39 @@
+{
+    "builders":[{
+        "type": "docker",
+        "image": "ubuntu:14.04.5",
+        "export_path": "image.tar"
+    }],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "mkdir -p /infra",
+                "chmod a+w /infra"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "./",
+            "destination": "/infra"
+        },
+        {
+            "type": "file",
+            "source": "../rails",
+            "destination": "/"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sh /infra/scripts/ubuntu/setup.sh",
+                "cd /infra/itamae && bundle install --path vendor/bundle",
+                "cd /infra/itamae && bundle exec itamae local /infra/itamae/roles/ubuntu/default.rb",
+                "sh /infra/scripts/ubuntu/cleanup.sh"
+            ]
+        }
+    ],
+    "post-processors": [{
+        "type": "docker-import",
+        "repository": "hatappi/test"
+    }]
+}
