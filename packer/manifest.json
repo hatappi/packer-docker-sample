@@ -34,6 +34,6 @@
     ],
     "post-processors": [{
         "type": "docker-import",
-        "repository": "hatappi/test"
+        "repository": "packer-docker-sample/rails"
     }]
 }
