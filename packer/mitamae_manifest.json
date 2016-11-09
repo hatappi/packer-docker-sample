@@ -1,0 +1,41 @@
+{
+    "builders":[{
+        "type": "docker",
+        "image": "ubuntu:14.04.5",
+        "export_path": "image.tar"
+    }],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "mkdir -p /infra",
+                "chmod a+w /infra"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "./",
+            "destination": "/infra"
+        },
+        {
+            "type": "file",
+            "source": "../rails",
+            "destination": "/"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "apt-get update -y",
+                "apt-get install wget -y",
+                "wget https://github.com/k0kubun/mitamae/releases/download/v0.6.0/mitamae-x86_64-linux -P /infra/mitamae",
+                "chmod +x /infra/mitamae/mitamae-x86_64-linux",
+                "cd /infra/mitamae && ./mitamae-x86_64-linux local roles/ubuntu/default.rb",
+                "sh /infra/scripts/ubuntu/cleanup.sh"
+            ]
+        }
+    ],
+    "post-processors": [{
+        "type": "docker-import",
+        "repository": "packer-docker-sample/rails"
+    }]
+}
