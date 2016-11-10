@@ -25,15 +25,14 @@
         {
             "type": "shell",
             "inline": [
-                "sh /infra/scripts/ubuntu/setup.sh",
-                "cd /infra/itamae && bundle install --path vendor/bundle",
-                "cd /infra/itamae && bundle exec itamae local /infra/itamae/roles/ubuntu/default.rb",
+                "sh /infra/scripts/ubuntu/mitamae_setup.sh",
+                "cd /infra/mitamae && ./mitamae-x86_64-linux local roles/ubuntu/default.rb",
                 "sh /infra/scripts/ubuntu/cleanup.sh"
             ]
         }
     ],
     "post-processors": [{
         "type": "docker-import",
-        "repository": "packer-docker-sample/rails"
+        "repository": "packer-docker-sample/mitamae_rails"
     }]
 }
