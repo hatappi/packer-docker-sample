@@ -25,10 +25,7 @@
         {
             "type": "shell",
             "inline": [
-                "apt-get update -y",
-                "apt-get install wget -y",
-                "wget https://github.com/k0kubun/mitamae/releases/download/v0.6.0/mitamae-x86_64-linux -P /infra/mitamae",
-                "chmod +x /infra/mitamae/mitamae-x86_64-linux",
+                "sh /infra/scripts/ubuntu/mitamae_setup.sh",
                 "cd /infra/mitamae && ./mitamae-x86_64-linux local roles/ubuntu/default.rb",
                 "sh /infra/scripts/ubuntu/cleanup.sh"
             ]
@@ -36,6 +33,6 @@
     ],
     "post-processors": [{
         "type": "docker-import",
-        "repository": "packer-docker-sample/rails"
+        "repository": "packer-docker-sample/mitamae_rails"
     }]
 }

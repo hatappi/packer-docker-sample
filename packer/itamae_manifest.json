@@ -25,7 +25,7 @@
         {
             "type": "shell",
             "inline": [
-                "sh /infra/scripts/ubuntu/setup.sh",
+                "sh /infra/scripts/ubuntu/itamae_setup.sh",
                 "cd /infra/itamae && bundle install --path vendor/bundle",
                 "cd /infra/itamae && bundle exec itamae local /infra/itamae/roles/ubuntu/default.rb",
                 "sh /infra/scripts/ubuntu/cleanup.sh"
@@ -34,6 +34,6 @@
     ],
     "post-processors": [{
         "type": "docker-import",
-        "repository": "packer-docker-sample/rails"
+        "repository": "packer-docker-sample/itamae_rails"
     }]
 }

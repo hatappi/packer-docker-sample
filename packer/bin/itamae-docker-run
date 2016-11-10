@@ -1,0 +1,4 @@
+#!/bin/sh
+
+IMAGE_NAME=packer-docker-sample/itamae_rails
+docker run -p 3000:3000 -w /rails -it $IMAGE_NAME /bin/bash -lc '/rails/bin/rails s -b 0.0.0.0'
